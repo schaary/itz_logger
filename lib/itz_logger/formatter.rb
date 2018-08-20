@@ -10,9 +10,9 @@ module ItzLogger
 
     def self.format(message)
       printf(
-        "%-8s | %-23s | %s\n",
+        "%-23s %-#{message.type.length}s %s\n",
+        message.created_at.strftime("%b %d %H:%M:%S UTC"),
         message.type.to_s.upcase,
-        message.created_at,
         message.message)
     end
 
