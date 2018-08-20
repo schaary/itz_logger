@@ -9,7 +9,9 @@ module ItzLogger
   class Formatter
 
     def self.format(message)
-      puts "#{message.type.to_s.upcase} | #{Time.now} | #{message.message}"
+      puts "#{message.type.to_s.upcase} |" +
+        " #{message.created_at} |" +
+        " #{message.message}"
     end
 
   end
