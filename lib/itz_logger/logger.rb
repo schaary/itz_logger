@@ -1,38 +1,50 @@
 
-require_relative "./message"
-require_relative "./formatter"
+require_relative "./log_terminal"
+require_relative "./log_strategy"
 
 module ItzLogger
+
   class Logger
 
-    @log_level = ItzLogger::MessageType::INFO
+    @log_strategy = nil
 
-    def initialize(log_level = ItzLogger::MessageType::INFO)
-      @log_level = log_level
+    def initialize(log_level, strategy)
+
+      case strategy
+      when ItzLogger::LogStrategy::LOG_TERMINAL
+        @log_strategy = ItzLogger::LogTerminal.new(log_level)
+      else
+        @log_strategy = ItzLogger::LogTerminal.new(log_level)
+      end
     end
 
     def write(log_level, message)
-      return nil if !ItzLogger::MessageType.equals(@log_level, log_level)
-      message = ItzLogger::Message.new(message, log_level)
-      ItzLogger::Formatter.format(message)
+      @log_strategy.write(log_level, message)
     end
 
     def info(message)
-      return nil if !ItzLogger::MessageType.equals(@log_level, ItzLogger::MessageType::INFO)
-      message = ItzLogger::Message.new(message, ItzLogger::MessageType::INFO)
-      ItzLogger::Formatter.format(message)
+      @log_strategy.write(ItzLogger::MessageType::INFO, message)
     end
 
     def warn(message)
-      return nil if !ItzLogger::MessageType.equals(@log_level, ItzLogger::MessageType::WARN)
-      message = ItzLogger::Message.new(message, ItzLogger::MessageType::WARN)
-      ItzLogger::Formatter.format(message)
+      @log_strategy.write(ItzLogger::MessageType::WARN, message)
     end
 
     def debug(message)
-      return nil if !ItzLogger::MessageType.equals(@log_level, ItzLogger::MessageType::DEBUG)
-      message = ItzLogger::Message.new(message, ItzLogger::MessageType::DEBUG)
-      ItzLogger::Formatter.format(message)
+      @log_strategy.write(ItzLogger::MessageType::DEBUG, message)
     end
+
+    def verbose(message)
+      @log_strategy.write(ItzLogger::MessageType::VERBOSE, message)
+    end
+
+    def log_level=(log_level)
+      @log_strategy.log_level = log_level
+    end
+
+    def log_level
+      @log_strategy.log_level
+    end
+
   end
 end
