@@ -27,7 +27,7 @@ Or install it yourself as:
 
 ## Usage
 
-The usage is pretty staight forward. Require the gem, create an object, configure it and write logs. 
+The usage is straight forward. Require the gem, create an object, configure it and write logs. 
 
 ### Log to the terminal (stdout)
 
@@ -40,14 +40,14 @@ require 'itz_logger'
 
 ...
 
-# you can chose the log_level from from
+# you can choose the log_level from from
 # - :info
 # - :warn
 # - :debug
 # - :verbose
 log_level = :info
 
-# you can chose the target from
+# you can choose the target from
 # - :log_terminal
 log_target = :log_terminal
 
