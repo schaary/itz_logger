@@ -6,7 +6,7 @@ This log gem supports multiple output channels:
 
 1. log to the terminal (stdout only)
 2. log to a file (not yet implemented)
-3. log to a RabbitMQ service
+3. log to a RabbitMQ service (not yet implemented)
 
 
 ## Installation
