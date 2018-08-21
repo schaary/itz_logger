@@ -1,20 +1,25 @@
 # ItzLogger
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/itz_logger`. To experiment with that code, run `bin/console` for an interactive prompt.
+ItzLogger is the N+1 log gem. Following the rule, that at least once in a life time every programmer has to write a log gem (or lib or app ...). 
 
-TODO: Delete this and the text above, and describe your gem
+This log gem supports multiple output channels:
+
+1. log to the terminal (stdout only)
+2. log to a file (not yet implemented)
+3. log to a RabbitMQ service
+
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'itz_logger'
+gem 'itz_logger', '~> 0.2.6'
 ```
 
 And then execute:
 
-    $ bundle
+    $ bundle install
 
 Or install it yourself as:
 
@@ -22,7 +27,42 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+The usage is pretty staight forward. Require the gem, create an object, configure it and write logs. 
+
+### Log to the terminal (stdout)
+
+First things first - install the gem. Take a look in the installation section.
+
+A simple example:
+
+```ruby
+require 'itz_logger'
+
+...
+
+# you can chose the log_level from from
+# - :info
+# - :warn
+# - :debug
+# - :verbose
+log_level = :info
+
+# you can chose the target from
+# - :log_terminal
+log_target = :log_terminal
+
+# create a logger
+logger = ItzLogger::Logger.new(log_level, log_target)
+
+# now go ahead
+logger.info("foo")
+
+logger.warn("bar")
+
+logger.debug("baz")
+
+logger.verbose("foo bar baz")
+```
 
 ## Development
 
