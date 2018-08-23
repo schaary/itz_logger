@@ -9,6 +9,7 @@ module ItzLogger
   class Logger
 
     @log_strategy = nil
+    @id = nil
 
     def initialize(options = {})
 
@@ -20,7 +21,7 @@ module ItzLogger
       @log_strategy =
         case log_strategy
         when ItzLogger::LogStrategy::LOG_TERMINAL
-          ItzLogger::LogTerminal.new(log_level)
+          ItzLogger::LogTerminal.new(log_level, @id)
         when ItzLogger::LogStrategy::LOG_FILE
           ItzLogger::LogFile.new(log_level)
         end
