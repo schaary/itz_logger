@@ -9,13 +9,13 @@ module ItzLogger
   class Logger
 
     @log_strategy = nil
-    @id = SecureRandom.hex(4)
 
     def initialize(options = {})
 
       log_level = options.fetch(:log_level, ItzLogger::MessageType::INFO)
       log_strategy = options.fetch(:log_strategy, ItzLogger::LogStrategy::LOG_TERMINAL)
       _log_file = options.fetch(:log_file, "./log/logfile.log")
+      @id = SecureRandom.hex(4)
 
       @log_strategy =
         case log_strategy
