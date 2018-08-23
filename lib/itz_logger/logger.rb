@@ -1,5 +1,6 @@
 
 require_relative "./log_terminal"
+require_relative "./log_file"
 require_relative "./log_strategy"
 
 require 'securerandom'
@@ -9,21 +10,21 @@ module ItzLogger
   class Logger
 
     @log_strategy = nil
-    @id = nil
+    @log_id = nil
 
     def initialize(options = {})
 
       log_level = options.fetch(:log_level, ItzLogger::MessageType::INFO)
       log_strategy = options.fetch(:log_strategy, ItzLogger::LogStrategy::LOG_TERMINAL)
-      _log_file = options.fetch(:log_file, "./log/logfile.log")
-      @id = SecureRandom.hex(4)
+      log_file = options.fetch(:log_file, "./log/logfile.log")
+      @log_id = SecureRandom.hex(4)
 
       @log_strategy =
         case log_strategy
         when ItzLogger::LogStrategy::LOG_TERMINAL
-          ItzLogger::LogTerminal.new(log_level, @id)
+          ItzLogger::LogTerminal.new(log_level, @log_id)
         when ItzLogger::LogStrategy::LOG_FILE
-          ItzLogger::LogFile.new(log_level)
+          ItzLogger::LogFile.new(log_level, log_file, @log_id)
         end
     end
 
@@ -56,7 +57,7 @@ module ItzLogger
     end
 
     def id
-      @id
+      @log_id
     end
 
   end
