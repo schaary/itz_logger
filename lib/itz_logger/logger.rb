@@ -2,11 +2,14 @@
 require_relative "./log_terminal"
 require_relative "./log_strategy"
 
+require 'securerandom'
+
 module ItzLogger
 
   class Logger
 
     @log_strategy = nil
+    @id = SecureRandom.hex(4)
 
     def initialize(options = {})
 
@@ -49,6 +52,10 @@ module ItzLogger
 
     def log_level
       @log_strategy.log_level
+    end
+
+    def id
+      @id
     end
 
   end
