@@ -5,7 +5,7 @@ ItzLogger is the N+1 log gem. Following the rule, that at least once in a life t
 This log gem supports multiple output channels:
 
 1. log to the terminal (stdout only)
-2. log to a file (not yet implemented)
+2. log to a file 
 3. log to a RabbitMQ service (not yet implemented)
 
 
@@ -52,7 +52,9 @@ log_level = :info
 log_target = :log_terminal
 
 # create a logger
-logger = ItzLogger::Logger.new(log_level, log_target)
+logger = ItzLogger::Logger.new(
+  log_level: log_level,
+  log_strategy: log_target)
 
 # now go ahead
 logger.info("foo")
@@ -64,6 +66,50 @@ logger.debug("baz")
 logger.verbose("foo bar baz")
 ```
 
+### Log to a file
+
+First things first - install the gem. Take a look in the installation section.
+
+The logger checks the existance of the log file. If the file exists and 
+is writable, the logger uses this the file.
+If the file does not exist, the logger tries to create the file.
+
+If both fails (creation and/or usage), the logger silently ignores it and does
+write any logs.
+
+A simple example:
+
+```ruby
+require 'itz_logger'
+
+...
+
+# you can choose the log_level from from
+# - :info
+# - :warn
+# - :debug
+# - :verbose
+log_level = :info
+
+# you can choose the target from
+# - :log_terminal
+log_target = :log_file
+
+# create a logger
+logger = ItzLogger::Logger.new(
+  log_level: log_level,
+  log_strategy: log_target,
+  log_file: "/tmp/my_log_file.log")
+
+# now go ahead
+logger.info("foo")
+
+logger.warn("bar")
+
+logger.debug("baz")
+
+logger.verbose("foo bar baz")
+```
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
