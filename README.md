@@ -49,6 +49,7 @@ log_level = :info
 
 # you can choose the target from
 # - :log_terminal
+# - :log_file
 log_target = :log_terminal
 
 # create a logger
@@ -93,6 +94,7 @@ log_level = :info
 
 # you can choose the target from
 # - :log_terminal
+# - :log_file
 log_target = :log_file
 
 # create a logger
