@@ -18,8 +18,8 @@ module ItzLogger
 
     def write(log_level, message)
       return nil if !ItzLogger::MessageType.equals(@log_level, log_level)
-      message = ItzLogger::Message.new(message, log_level)
-      ItzLogger::Formatter.format(@log_id, message)
+      log_message = ItzLogger::Message.new(message, log_level)
+      puts ItzLogger::Formatter.format(@log_id, log_message)
     end
 
     def log_level=(log_level)

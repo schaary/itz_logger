@@ -9,7 +9,7 @@ module ItzLogger
   class Formatter
 
     def self.format(id, message)
-      printf(
+      sprintf(
         "%-19s %-s8 %-#{message.type.length}s %s\n",
         message.created_at.strftime("%b %d %H:%M:%S UTC"),
         id,
