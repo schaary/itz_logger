@@ -20,7 +20,7 @@ module ItzLogger
 
     def initialize(
       log_level = ItzLogger::MessageType::INFO,
-      log_file = '/tmp/logfile.log',
+      log_file = './log/logfile.log',
       log_id = nil)
 
       @log_level = log_level
@@ -104,7 +104,7 @@ module ItzLogger
 
           begin
             FileUtils.mkdir_p(path)
-            @log_file_handle = File.open(log_file)
+            @log_file_handle = File.open(log_file, 'w')
             @log_file_handle.sync = true
           rescue
             @error_flag = true
